@@ -14,4 +14,4 @@
 
 ## GitHub Pages
 
-[Перейти на сайт](https://vkrasnova.github.io/vkrasnova/mesto/ "Сервис Mesto")
+[Перейти на сайт](https://vkrasnova.github.io/mesto/ "Сервис Mesto")
