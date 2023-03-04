@@ -25,16 +25,16 @@
 
     <section class="profile" aria-label="Профиль">
       <div class="profile__main">
-        <img src="./images/profile-avatar.jpg" alt="" class="profile__avatar">
+        <img src="./images/profile-avatar.jpg" alt="Аватар профиля" class="profile__avatar">
         <div class="profile__info">
           <div class="profile__username">
             <h1 class="profile__username-text">Жак-Ив Кусто</h1>
-            <button class="profile__edit-btn"></button>
+            <button type="button" class="profile__edit-btn" aria-label="Редактировать профиль"></button>
           </div>
           <p class="profile__about">Исследователь океана</p>
         </div>
       </div>
-      <button class="profile__add-btn"></button>
+      <button type="button" class="profile__add-btn" aria-label="Добавить фото"></button>
     </section>
 
     <!-- GALLERY -->
@@ -42,60 +42,59 @@
     <section class="gallery" aria-label="Фотогалерея">
       <ul class="gallery__cards">
         <li>
-          <article class="gallery__card">
-            <img src="./images/photos/karachaevsk.jpg" alt="Карачаевск" class="gallery__card-image">
-            <div class="gallery__card-footer">
-              <h2 class="gallery__card-title">Карачаевск</h2>
-              <button class="gallery__like-btn"></button>
+          <article class="card"> 
+            <img src="./images/photos/imeretinka.jpg" alt="Имеретинка" class="card__image">
+            <div class="card__footer">
+              <h2 class="card__title">Имеретинcкая низменность</h2>
+              <button type="button" class="card__like-btn" aria-label="Мне нравится"></button>
             </div>
           </article>
         </li>
         <li>
-          <article class="gallery__card">
-            <img src="./images/photos/elbrus.jpg" alt="Эльбрус" class="gallery__card-image">
-            <div class="gallery__card-footer">
-              <h2 class="gallery__card-title">Гора Эльбрус</h2>
-              <button class="gallery__like-btn"></button>
+          <article class="card">
+            <img src="./images/photos/krasnaya-polyana.jpg" alt="Красная Поляна" class="card__image">
+            <div class="card__footer">
+              <h2 class="card__title">Красная Поляна</h2>
+              <button type="button" class="card__like-btn" aria-label="Мне нравится"></button>
             </div>
           </article>
         </li>
         <li>
-          <article class="gallery__card">
-            <img src="./images/photos/dombay.jpg" alt="Домбай" class="gallery__card-image">
-            <div class="gallery__card-footer">
-              <h2 class="gallery__card-title">Домбай</h2>
-              <button class="gallery__like-btn"></button>
+          <article class="card">
+            <img src="./images/photos/khosta.jpg" alt="Хоста" class="card__image">
+            <div class="card__footer">
+              <h2 class="card__title">Хоста</h2>
+              <button type="button" class="card__like-btn card__like-btn_active" aria-label="Мне нравится"></button>
             </div>
           </article>
         </li>
         <li>
-          <article class="gallery__card">
-            <img src="./images/photos/elbrus.jpg" alt="Карачаевск" class="gallery__card-image">
-            <div class="gallery__card-footer">
-              <h2 class="gallery__card-title">Гора Эльбрус</h2>
-              <button class="gallery__like-btn"></button>
+          <article class="card">
+            <img src="./images/photos/ordzhonikidze.jpg" alt="Орджоникидзе" class="card__image">
+            <div class="card__footer">
+              <h2 class="card__title">Орджоникидзе</h2>
+              <button type="button" class="card__like-btn" aria-label="Мне нравится"></button>
             </div>
           </article>
         </li>
         <li>
-          <article class="gallery__card">
-            <img src="./images/photos/dombay.jpg" alt="Карачаевск" class="gallery__card-image">
-            <div class="gallery__card-footer">
-              <h2 class="gallery__card-title">Домбай</h2>
-              <button class="gallery__like-btn"></button>
+          <article class="card">
+            <img src="./images/photos/dendrariy.jpg" alt="Дендрарий" class="card__image">
+            <div class="card__footer">
+              <h2 class="card__title">Дендрарий</h2>
+              <button type="button" class="card__like-btn" aria-label="Мне нравится"></button>
             </div>
           </article>
         </li>
         <li>
-          <article class="gallery__card">
-            <img src="./images/photos/karachaevsk.jpg" alt="Карачаевск" class="gallery__card-image">
-            <div class="gallery__card-footer">
-              <h2 class="gallery__card-title">Карачаевск</h2>
-              <button class="gallery__like-btn"></button>
+          <article class="card">
+            <img src="./images/photos/rosa-khutor.jpg" alt="Роза Хутор" class="card__image">
+            <div class="card__footer">
+              <h2 class="card__title">Роза Хутор</h2>
+              <button type="button" class="card__like-btn" aria-label="Мне нравится"></button>
             </div>
           </article>
         </li>
-
       </ul>
     </section>
 
@@ -106,5 +105,23 @@
   <footer class="footer">
     <p class="footer__copyright">&copy; 2023 Mesto Russia</p>
   </footer>
+
+  <!-- POPUP -->
+
+  <section class="popup" name="profile-edit-popup" aria-label="Окно редактирования профиля">
+    <div class="popup__container">
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <form class="popup__form" name="profile-edit-form">
+        <fieldset class="popup__form-inputs">
+          <input type="text" class="popup__form-input" name="profile-username" placeholder="Имя">
+          <input type="text" class="popup__form-input" name="profile-about" placeholder="О себе">
+        </fieldset>
+        <button type="submit" class="popup__form-submit-btn" aria-label="Сохранить изменения">Сохранить</button>
+      </form>
+      <button type="button" class="popup__close-btn" aria-label="Закрыть окно редактирования профиля"></button>
+    </div>
+  </section>
+
+  <script src="./scripts/index.js"></script>
 </body>
 </html>

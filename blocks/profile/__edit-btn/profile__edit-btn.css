@@ -1,0 +1,15 @@
+.profile__edit-btn {
+  box-sizing: border-box;
+  padding: 0;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  background: no-repeat center url(../../../images/icons/pencil.svg);
+  border: 1px solid #fff;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+}
+
+.profile__edit-btn:hover {
+  opacity: .6;
+}
