@@ -1,13 +1,13 @@
 // CONSTANT DECLARATION
 
-const profileUsername = document.querySelector('.profile__info-name');
-const profileAbout = document.querySelector('.profile__info-about');
+const profileUserName = document.querySelector('.profile__info-name');
+const profileUserAbout = document.querySelector('.profile__info-about');
 const profileEditButton = document.querySelector('.profile__info-edit-btn');
 
 const popup = document.querySelector('.popup');
 const popupEditProfileForm = document.querySelector('form[name="profile-edit-form"]');
-const popupInputName = document.querySelector('.popup__form-input_data_name');
-const popupInputAbout = document.querySelector('.popup__form-input_data_about');
+const popupInputUserName = document.querySelector('.popup__form-input_data_name');
+const popupInputUserAbout = document.querySelector('.popup__form-input_data_about');
 const popupCloseButton = document.querySelector('.popup__close-btn');
 const popupSubmitButton = document.querySelector('.popup__form-submit-btn');
 
@@ -19,8 +19,8 @@ function openPopup() {
 
 profileEditButton.addEventListener('click', function() {
   openPopup();
-  popupInputName.value = profileUsername.textContent;
-  popupInputAbout.value = profileAbout.textContent;
+  popupInputUserName.value = profileUserName.textContent;
+  popupInputUserAbout.value = profileUserAbout.textContent;
 });
 
 // CLOSE POPUP
@@ -35,8 +35,8 @@ popupCloseButton.addEventListener('click', closePopup);
 
 function handleFormSubmit(event) {
     event.preventDefault();
-    profileUsername.textContent = popupInputName.value;
-    profileAbout.textContent = popupInputAbout.value;
+    profileUserName.textContent = popupInputUserName.value;
+    profileUserAbout.textContent = popupInputUserAbout.value;
     closePopup();
 };
 
