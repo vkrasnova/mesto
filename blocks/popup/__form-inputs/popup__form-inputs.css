@@ -6,3 +6,11 @@
   row-gap: 30px;
   border: none;
 }
+
+@media (max-width: 767px) {
+
+  .popup__form-inputs {
+    margin: 75px 0 45px;
+  }
+  
+}
