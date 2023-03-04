@@ -1,8 +1,8 @@
 // CONSTANT DECLARATION
 
-const profileUsername = document.querySelector('.profile__username-text');
-const profileAbout = document.querySelector('.profile__about');
-const profileEditButton = document.querySelector('.profile__edit-btn');
+const profileUsername = document.querySelector('.profile__user-name');
+const profileAbout = document.querySelector('.profile__user-about');
+const profileEditButton = document.querySelector('.profile__edit-info-btn');
 
 const popup = document.querySelector('.popup');
 const popupEditProfileForm = document.querySelector('form[name="profile-edit-form"]');

@@ -3,3 +3,11 @@
   padding: 50px 19px 0;
   max-width: 880px;
 }
+
+@media (max-width: 618px) {
+
+  .gallery {
+    padding-top: 36px;
+  }
+  
+}

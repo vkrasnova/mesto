@@ -3,3 +3,13 @@
   align-items: center;
   column-gap: 30px;
 }
+
+@media (max-width: 618px) {
+
+  .profile__main {
+    width: 100%;
+    flex-direction: column;
+    row-gap: 26px;
+  }
+  
+}

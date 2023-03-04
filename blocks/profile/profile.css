@@ -7,3 +7,21 @@
   align-items: center;
   column-gap: 30px;
 }
+
+@media (max-width: 917px) {
+
+  .profile {
+    max-width: 581px;
+  }
+  
+}
+
+@media (max-width: 618px) {
+
+  .profile {
+    max-width: 282px;
+    flex-direction: column;
+    row-gap: 33px;
+  }
+  
+}
