@@ -5,3 +5,11 @@
   max-height: 33px;
   height: 100%;
 }
+
+@media (max-width: 917px) {
+
+  .header__logo {
+    margin: 0 27px;
+  }
+  
+}

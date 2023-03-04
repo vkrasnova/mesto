@@ -7,7 +7,7 @@
   border: none;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 618px) {
 
   .popup__form-inputs {
     margin: 75px 0 45px;
