@@ -1,15 +1,26 @@
 .profile__main {
   display: flex;
-  align-items: center;
   column-gap: 30px;
+  max-width: calc(100% - 180px);
+  width: 100%;
+}
+
+@media (max-width: 917px) {
+
+  .profile__main {
+    max-width: calc(100% - 120px);
+    column-gap: 20px;
+  }
+
 }
 
 @media (max-width: 618px) {
 
   .profile__main {
-    width: 100%;
+    max-width: 100%;
     flex-direction: column;
+    align-items: center;
     row-gap: 26px;
   }
-  
+
 }

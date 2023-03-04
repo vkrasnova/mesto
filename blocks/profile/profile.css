@@ -12,8 +12,9 @@
 
   .profile {
     max-width: 581px;
+    column-gap: 20px;
   }
-  
+
 }
 
 @media (max-width: 618px) {
@@ -21,7 +22,7 @@
   .profile {
     max-width: 282px;
     flex-direction: column;
-    row-gap: 33px;
+    row-gap: 32px;
   }
-  
+
 }

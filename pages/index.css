@@ -17,10 +17,10 @@
 @import url('../blocks/profile/__main/profile__main.css');
 @import url('../blocks/profile/__avatar/profile__avatar.css');
 @import url('../blocks/profile/__info/profile__info.css');
-@import url('../blocks/profile/__user/profile__user.css');
-@import url('../blocks/profile/__user-name/profile__user-name.css');
-@import url('../blocks/profile/__user-about/profile__user-about.css');
-@import url('../blocks/profile/__edit-info-btn/profile__edit-info-btn.css');
+@import url('../blocks/profile/__info-main/profile__info-main.css');
+@import url('../blocks/profile/__info-name/profile__info-name.css');
+@import url('../blocks/profile/__info-edit-btn/profile__info-edit-btn.css');
+@import url('../blocks/profile/__info-about/profile__info-about.css');
 @import url('../blocks/profile/__add-place-btn/profile__add-place-btn.css');
 
 /*** GALLERY ***/

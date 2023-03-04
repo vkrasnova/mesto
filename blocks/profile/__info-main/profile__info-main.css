@@ -1,0 +1,14 @@
+.profile__info-main {
+  display: flex;
+  column-gap: 18px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (max-width: 917px) {
+
+  .profile__info-main {
+    column-gap: 10px;
+  }
+
+}

@@ -1,12 +1,10 @@
 .profile__add-place-btn {
-  box-sizing: border-box;
-  padding: 0;
   max-width: 150px;
   width: 100%;
   height: 50px;
-  background: no-repeat center url(../../../images/icons/plus.svg);
+  background: url(../../../images/icons/plus.svg) center no-repeat;
   background-size: 22px;
-  border: 2px solid #fff;
+  border: 2px solid #FFFFFF;
   border-radius: 2px;
   flex-shrink: 0;
   cursor: pointer;
@@ -17,11 +15,19 @@
   opacity: .6;
 }
 
+@media (max-width: 917px) {
+
+  .profile__add-place-btn {
+    max-width: 100px;
+    background-size: 16px;
+  }
+
+}
+
 @media (max-width: 618px) {
 
   .profile__add-place-btn {
     max-width: 282px;
-    background-size: 16px;
   }
-  
+
 }
