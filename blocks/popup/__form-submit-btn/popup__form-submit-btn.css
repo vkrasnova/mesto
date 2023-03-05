@@ -1,7 +1,6 @@
 .popup__form-submit-btn {
-  padding: 0 15px;
+  padding: 14px;
   width: 100%;
-  height: 50px;
   background: #000;
   color: #fff;
   border: none;
@@ -21,7 +20,6 @@
 @media (max-width: 618px) {
 
   .popup__form-submit-btn {
-    height: 46px;
     font-size: 14px;
   }
   
