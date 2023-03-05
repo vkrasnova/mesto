@@ -1,14 +1,23 @@
 .profile__info-main {
+  max-width: 506px;
   display: flex;
-  column-gap: 18px;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  row-gap: 10px;
 }
 
 @media (max-width: 917px) {
 
   .profile__info-main {
-    column-gap: 10px;
+    max-width: 292px;
+  }
+
+}
+
+@media (max-width: 618px) {
+
+  .profile__info-main {
+    max-width: 226px;
+    row-gap: 8px;
   }
 
 }
