@@ -28,7 +28,7 @@
 @import url('../blocks/gallery/gallery.css');
 @import url('../blocks/gallery/__places/gallery__places.css');
 
-/*** CARD ***/
+/*** PLACE ***/
 
 @import url('../blocks/place/place.css');
 @import url('../blocks/place/__image/place__image.css');
