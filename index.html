@@ -28,7 +28,7 @@
         <img src="./images/profile-avatar.jpg" alt="Аватар профиля" class="profile__avatar">
         <div class="profile__info">
           <div class="profile__info-main">
-            <h1 class="profile__info-name">Владимир Кузнецов</h1>
+            <h1 class="profile__info-name">Кот Владимир</h1>
             <p class="profile__info-about">Исследователь Сочи</p>
           </div>
           <button type="button" class="profile__info-edit-btn" aria-label="Редактировать профиль"></button>
@@ -41,60 +41,6 @@
 
     <section class="gallery" aria-label="Фотогалерея">
       <ul class="gallery__places">
-        <li>
-          <article class="place"> 
-            <img src="./images/photos/imeretinka.jpg" alt="Имеретинка" class="place__image">
-            <div class="place__footer">
-              <h2 class="place__title">Имеретинcкая низменность</h2>
-              <button type="button" class="place__like-btn" aria-label="Мне нравится"></button>
-            </div>
-          </article>
-        </li>
-        <li>
-          <article class="place">
-            <img src="./images/photos/krasnaya-polyana.jpg" alt="Красная Поляна" class="place__image">
-            <div class="place__footer">
-              <h2 class="place__title">Красная Поляна</h2>
-              <button type="button" class="place__like-btn" aria-label="Мне нравится"></button>
-            </div>
-          </article>
-        </li>
-        <li>
-          <article class="place">
-            <img src="./images/photos/khosta.jpg" alt="Хоста" class="place__image">
-            <div class="place__footer">
-              <h2 class="place__title">Хоста</h2>
-              <button type="button" class="place__like-btn place__like-btn_active" aria-label="Мне нравится"></button>
-            </div>
-          </article>
-        </li>
-        <li>
-          <article class="place">
-            <img src="./images/photos/ordzhonikidze.jpg" alt="Орджоникидзе" class="place__image">
-            <div class="place__footer">
-              <h2 class="place__title">Орджоникидзе</h2>
-              <button type="button" class="place__like-btn" aria-label="Мне нравится"></button>
-            </div>
-          </article>
-        </li>
-        <li>
-          <article class="place">
-            <img src="./images/photos/dendrariy.jpg" alt="Дендрарий" class="place__image">
-            <div class="place__footer">
-              <h2 class="place__title">Дендрарий</h2>
-              <button type="button" class="place__like-btn" aria-label="Мне нравится"></button>
-            </div>
-          </article>
-        </li>
-        <li>
-          <article class="place">
-            <img src="./images/photos/rosa-khutor.jpg" alt="Роза Хутор" class="place__image">
-            <div class="place__footer">
-              <h2 class="place__title">Роза Хутор</h2>
-              <button type="button" class="place__like-btn" aria-label="Мне нравится"></button>
-            </div>
-          </article>
-        </li>
       </ul>
     </section>
 
@@ -121,6 +67,20 @@
       <button type="button" class="popup__close-btn" aria-label="Закрыть окно редактирования профиля"></button>
     </div>
   </section>
+
+  <!-- TEMPLATE FOR PLACE -->
+
+  <template id="place-template">
+    <li class="gallery__places-item">
+      <article class="place"> 
+        <img src="#" alt="#" class="place__image">
+        <div class="place__footer">
+          <h2 class="place__title"></h2>
+          <button type="button" class="place__like-btn" aria-label="Мне нравится"></button>
+        </div>
+      </article>
+    </li>
+  </template>
 
   <script src="./scripts/index.js" defer></script>
 </body>
