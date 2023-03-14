@@ -54,13 +54,13 @@
 
   <!-- POPUP for PROFILE EDITING-->
 
-  <section class="popup popup_type_edit-profile" aria-label="Окно редактирования профиля">
-    <div class="popup__container">
+  <section class="popup" id="edit-profile-popup" aria-label="Окно редактирования профиля">
+    <div class="popup__container popup__container_type_form">
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="popup__form" name="edit-profile-form">
+      <form class="popup__form" id="edit-profile-form">
         <fieldset class="popup__form-inputs">
-          <input type="text" class="popup__form-input popup__form-input_data_name" name="profile-username" placeholder="Имя">
-          <input type="text" class="popup__form-input popup__form-input_data_about" name="profile-about" placeholder="О себе">
+          <input type="text" class="popup__form-input" id="edit-profile-input-username" placeholder="Имя">
+          <input type="text" class="popup__form-input" id="edit-profile-input-userabout" placeholder="О себе">
         </fieldset>
         <button type="submit" class="popup__form-submit-btn" aria-label="Сохранить изменения">Сохранить</button>
       </form>
@@ -68,21 +68,33 @@
     </div>
   </section>
 
-    <!-- POPUP for PLACE ADDING-->
+  <!-- POPUP for PLACE ADDING-->
 
-    <section class="popup popup_type_add-place" aria-label="Окно добавления нового места">
-      <div class="popup__container">
-        <h2 class="popup__title">Новое место</h2>
-        <form class="popup__form" name="add-place-form">
-          <fieldset class="popup__form-inputs">
-            <input type="text" class="popup__form-input popup__form-input_data_place-title" name="place-title" placeholder="Название">
-            <input type="text" class="popup__form-input popup__form-input_data_place-url" name="place-url" placeholder="Ссылка на картинку">
-          </fieldset>
-          <button type="submit" class="popup__form-submit-btn" aria-label="Создать карточку">Создать</button>
-        </form>
-        <button type="button" class="popup__close-btn" aria-label="Закрыть окно добавления нового места"></button>
-      </div>
-    </section>
+  <section class="popup" id="add-place-popup" aria-label="Окно добавления нового места">
+    <div class="popup__container popup__container_type_form">
+      <h2 class="popup__title">Новое место</h2>
+      <form class="popup__form" id="add-place-form">
+        <fieldset class="popup__form-inputs">
+          <input type="text" class="popup__form-input" id="add-place-input-title" placeholder="Название">
+          <input type="text" class="popup__form-input" id="add-place-input-photourl" placeholder="Ссылка на картинку">
+        </fieldset>
+        <button type="submit" class="popup__form-submit-btn" aria-label="Создать карточку">Создать</button>
+      </form>
+      <button type="button" class="popup__close-btn" aria-label="Закрыть окно добавления нового места"></button>
+    </div>
+  </section>
+
+  <!-- POPUP for IMAGE-->
+
+  <section class="popup popup_type_image" id="zoom-image-popup" aria-label="Увеличенное фото места">
+    <div class="popup__container popup__container_type_image">
+      <figure class="popup__figure">
+        <img src="#" alt="#" class="popup__image">
+        <figcaption class="popup__image-title"></figcaption>
+      </figure>
+      <button type="button" class="popup__close-btn" aria-label="Закрыть окно c увеличенным фото"></button>
+    </div>
+  </section>
 
   <!-- TEMPLATE for PLACE -->
 

@@ -19,13 +19,13 @@ const initialPlaces = [
     name: 'Красная Поляна',
     link: './images/photos/krasnaya-polyana.jpg',
   },
+    {
+    name: 'Орджоникидзе',
+    link: './images/photos/ordzhonikidze.jpg',
+  },
   {
     name: 'Хоста',
     link: './images/photos/khosta.jpg',
-  },
-  {
-    name: 'Орджоникидзе',
-    link: './images/photos/ordzhonikidze.jpg',
   },
   {
     name: 'Дендрарий',
@@ -41,15 +41,19 @@ const initialPlaces = [
 
 const popupCloseButtons = document.querySelectorAll('.popup__close-btn');
 
-const popupEditProfile = document.querySelector('.popup_type_edit-profile');
-const popupEditProfileForm = popupEditProfile.querySelector('form[name="edit-profile-form"]');
-const popupInputUserName = popupEditProfile.querySelector('.popup__form-input_data_name');
-const popupInputUserAbout = popupEditProfile.querySelector('.popup__form-input_data_about');
+const popupEditProfile = document.querySelector('#edit-profile-popup');
+const popupEditProfileForm = popupEditProfile.querySelector('#edit-profile-form');
+const popupInputUserName = popupEditProfile.querySelector('#edit-profile-input-username');
+const popupInputUserAbout = popupEditProfile.querySelector('#edit-profile-input-userabout');
 
-const popupAddPlace = document.querySelector('.popup_type_add-place');
-const popupAddPlaceForm = popupAddPlace.querySelector('form[name="add-place-form"]');
-const popupInputNewPlaceName = popupAddPlace.querySelector('.popup__form-input_data_place-title');
-const popupInputNewPlacePhotoURL = popupAddPlace.querySelector('.popup__form-input_data_place-url');
+const popupAddPlace = document.querySelector('#add-place-popup');
+const popupAddPlaceForm = popupAddPlace.querySelector('#add-place-form');
+const popupInputNewPlaceName = popupAddPlace.querySelector('#add-place-input-title');
+const popupInputNewPlacePhotoURL = popupAddPlace.querySelector('#add-place-input-photourl');
+
+const popupZoom = document.querySelector('#zoom-image-popup');
+const popupZoomImage = popupZoom.querySelector('.popup__image');
+const popupZoomImageTitle = popupZoom.querySelector('.popup__image-title');;
 
 //*** CREATE PLACE ***//
 
@@ -63,6 +67,13 @@ function createPlace(PlaceName, PlacePhotoURL) {
   const newPlacePhoto = newPlaceElement.querySelector('.place__image');
   newPlacePhoto.src = PlacePhotoURL;
   newPlacePhoto.alt = PlaceName;
+
+  newPlacePhoto.addEventListener('click', function() {
+    popupZoomImage.src = PlacePhotoURL;
+    popupZoomImage.alt = PlaceName;
+    popupZoomImageTitle.textContent = PlaceName;
+    openPopup(popupZoom);
+  });
 
   // PLACE => TITLE
 
@@ -156,7 +167,6 @@ popupAddPlaceForm.addEventListener('submit', function(evt) {
   closePopup(popupAddPlace);
 
 });
-
 
 
 //*** ON PAGE LOADING ***//
