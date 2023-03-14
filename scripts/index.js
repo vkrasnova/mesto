@@ -1,8 +1,12 @@
-// CONSTANT DECLARATION
+//*** CONSTANT DECLARATION ***//
+
+// CONSTANTS => PROFILE
 
 const profileUserName = document.querySelector('.profile__info-name');
 const profileUserAbout = document.querySelector('.profile__info-about');
 const profileEditButton = document.querySelector('.profile__info-edit-btn');
+
+// CONSTANTS => GALLERY & PLACES
 
 const galleryOfPlaces = document.querySelector('.gallery__places');
 const initialPlaces = [
@@ -32,6 +36,8 @@ const initialPlaces = [
   }
 ]
 
+// CONSTANTS => POPUP
+
 const popup = document.querySelector('.popup');
 const popupEditProfileForm = document.querySelector('form[name="profile-edit-form"]');
 const popupInputUserName = document.querySelector('.popup__form-input_data_name');
@@ -39,69 +45,96 @@ const popupInputUserAbout = document.querySelector('.popup__form-input_data_abou
 const popupCloseButton = document.querySelector('.popup__close-btn');
 const popupSubmitButton = document.querySelector('.popup__form-submit-btn');
 
-// CREATE PLACE
+//*** CREATE PLACE ***//
 
 function createPlace(PlaceName, PlacePhotoURL) {
 
   const placeTemplate = document.querySelector('#place-template').content;
   const newPlaceElement = placeTemplate.querySelector('.gallery__places-item').cloneNode(true);
 
+  // PLACE => IMAGE
+
   const newPlacePhoto = newPlaceElement.querySelector('.place__image');
   newPlacePhoto.src = PlacePhotoURL;
   newPlacePhoto.alt = PlaceName;
 
+  // PLACE => TITLE
+
   const newPlaceName = newPlaceElement.querySelector('.place__title');
   newPlaceName.textContent = PlaceName;
+
+  // PLACE => LIKE BUTTON
 
   const newPlaceLikeButton = newPlaceElement.querySelector('.place__like-btn');
   newPlaceLikeButton.addEventListener('click', function (evt) {
     evt.target.classList.toggle('place__like-btn_active');
   });
 
+  // PLACE => DELETE BUTTON
+
+  const newPlaceDeleteButton = newPlaceElement.querySelector('.place__delete-btn');
+  newPlaceDeleteButton.addEventListener('click', function () {
+    newPlaceElement.remove();
+  });
+
   return newPlaceElement;
 
 }
 
-// ADD PLACE TO GALLERY
+//*** ADD PLACE TO GALLERY ***//
 
 function addPlaceToGallery(placeName, placePhotoURL) {
+
   const place = createPlace(placeName, placePhotoURL);
   galleryOfPlaces.prepend(place);
+
 }
+
+//*** POPUP ***//
 
 // OPEN POPUP
 
 function openPopup() {
+
   popup.classList.add('popup_opened');
+
 }
 
 profileEditButton.addEventListener('click', function() {
+
   openPopup();
   popupInputUserName.value = profileUserName.textContent;
   popupInputUserAbout.value = profileUserAbout.textContent;
+
 })
 
 // CLOSE POPUP
 
 function closePopup() {
+
   popup.classList.remove('popup_opened');
+
 }
 
 popupCloseButton.addEventListener('click', closePopup);
 
-// SUBMIT FORM
+//*** SUBMIT FORM ***//
 
 function handleFormSubmit(event) {
+
     event.preventDefault();
     profileUserName.textContent = popupInputUserName.value;
     profileUserAbout.textContent = popupInputUserAbout.value;
     closePopup();
+
 }
 
 popupEditProfileForm.addEventListener('submit', handleFormSubmit);
 
-// ON PAGE LOADING
+//*** ON PAGE LOADING ***//
 
 initialPlaces.forEach(function(place) {
+
   addPlaceToGallery(place.name, place.link);
+
 })
