@@ -53,6 +53,11 @@ function createPlace(PlaceName, PlacePhotoURL) {
   const newPlaceName = newPlaceElement.querySelector('.place__title');
   newPlaceName.textContent = PlaceName;
 
+  const newPlaceLikeButton = newPlaceElement.querySelector('.place__like-btn');
+  newPlaceLikeButton.addEventListener('click', function (evt) {
+    evt.target.classList.toggle('place__like-btn_active');
+  });
+
   return newPlaceElement;
 
 }
