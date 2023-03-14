@@ -5,6 +5,7 @@
 const profileUserName = document.querySelector('.profile__info-name');
 const profileUserAbout = document.querySelector('.profile__info-about');
 const profileEditButton = document.querySelector('.profile__info-edit-btn');
+const profileAddPlaceButton = document.querySelector('.profile__add-place-btn');
 
 // CONSTANTS => GALLERY & PLACES
 
@@ -36,14 +37,19 @@ const initialPlaces = [
   }
 ]
 
-// CONSTANTS => POPUP
+// CONSTANTS => POPUPS
 
-const popup = document.querySelector('.popup');
-const popupEditProfileForm = document.querySelector('form[name="profile-edit-form"]');
-const popupInputUserName = document.querySelector('.popup__form-input_data_name');
-const popupInputUserAbout = document.querySelector('.popup__form-input_data_about');
-const popupCloseButton = document.querySelector('.popup__close-btn');
-const popupSubmitButton = document.querySelector('.popup__form-submit-btn');
+const popupCloseButtons = document.querySelectorAll('.popup__close-btn');
+
+const popupEditProfile = document.querySelector('.popup_type_edit-profile');
+const popupEditProfileForm = popupEditProfile.querySelector('form[name="edit-profile-form"]');
+const popupInputUserName = popupEditProfile.querySelector('.popup__form-input_data_name');
+const popupInputUserAbout = popupEditProfile.querySelector('.popup__form-input_data_about');
+
+const popupAddPlace = document.querySelector('.popup_type_add-place');
+const popupAddPlaceForm = popupAddPlace.querySelector('form[name="add-place-form"]');
+const popupInputNewPlaceName = popupAddPlace.querySelector('.popup__form-input_data_place-title');
+const popupInputNewPlacePhotoURL = popupAddPlace.querySelector('.popup__form-input_data_place-url');
 
 //*** CREATE PLACE ***//
 
@@ -66,14 +72,14 @@ function createPlace(PlaceName, PlacePhotoURL) {
   // PLACE => LIKE BUTTON
 
   const newPlaceLikeButton = newPlaceElement.querySelector('.place__like-btn');
-  newPlaceLikeButton.addEventListener('click', function (evt) {
+  newPlaceLikeButton.addEventListener('click', function(evt) {
     evt.target.classList.toggle('place__like-btn_active');
   });
 
   // PLACE => DELETE BUTTON
 
   const newPlaceDeleteButton = newPlaceElement.querySelector('.place__delete-btn');
-  newPlaceDeleteButton.addEventListener('click', function () {
+  newPlaceDeleteButton.addEventListener('click', function() {
     newPlaceElement.remove();
   });
 
@@ -90,46 +96,68 @@ function addPlaceToGallery(placeName, placePhotoURL) {
 
 }
 
-//*** POPUP ***//
+//*** POPUPS ***//
 
-// OPEN POPUP
+// POPUPS => OPEN POPUP
 
-function openPopup() {
+function openPopup(popup) {
 
   popup.classList.add('popup_opened');
 
 }
 
-profileEditButton.addEventListener('click', function() {
+// POPUPS => CLOSE POPUP
 
-  openPopup();
-  popupInputUserName.value = profileUserName.textContent;
-  popupInputUserAbout.value = profileUserAbout.textContent;
-
-})
-
-// CLOSE POPUP
-
-function closePopup() {
+function closePopup(popup) {
 
   popup.classList.remove('popup_opened');
 
 }
 
-popupCloseButton.addEventListener('click', closePopup);
+popupCloseButtons.forEach(function(btn) {
+  const popup = btn.closest('.popup');
+  btn.addEventListener('click', function() {
+    closePopup(popup);
+  });
+});
 
-//*** SUBMIT FORM ***//
+// POPUP for PROFILE EDITING
 
-function handleFormSubmit(event) {
+profileEditButton.addEventListener('click', function() {
 
-    event.preventDefault();
-    profileUserName.textContent = popupInputUserName.value;
-    profileUserAbout.textContent = popupInputUserAbout.value;
-    closePopup();
+  openPopup(popupEditProfile);
+  popupInputUserName.value = profileUserName.textContent;
+  popupInputUserAbout.value = profileUserAbout.textContent;
 
-}
+})
 
-popupEditProfileForm.addEventListener('submit', handleFormSubmit);
+popupEditProfileForm.addEventListener('submit', function(evt) {
+
+  evt.preventDefault();
+  profileUserName.textContent = popupInputUserName.value;
+  profileUserAbout.textContent = popupInputUserAbout.value;
+  closePopup(popupEditProfile);
+
+});
+
+// POPUP for PLACE ADDING
+
+profileAddPlaceButton.addEventListener('click', function() {
+
+  openPopup(popupAddPlace);
+
+})
+
+popupAddPlaceForm.addEventListener('submit', function(evt) {
+
+  evt.preventDefault();
+  addPlaceToGallery(popupInputNewPlaceName.value, popupInputNewPlacePhotoURL.value);
+  evt.target.reset();
+  closePopup(popupAddPlace);
+
+});
+
+
 
 //*** ON PAGE LOADING ***//
 
