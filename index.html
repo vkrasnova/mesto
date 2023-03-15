@@ -58,10 +58,10 @@
     <div class="popup__container popup__container_type_form">
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class="popup__form" id="edit-profile-form">
-        <fieldset class="popup__form-inputs">
+        <div class="popup__form-inputs">
           <input type="text" class="popup__form-input" id="edit-profile-input-username" placeholder="Имя">
           <input type="text" class="popup__form-input" id="edit-profile-input-userabout" placeholder="О себе">
-        </fieldset>
+        </div>
         <button type="submit" class="popup__form-submit-btn" aria-label="Сохранить изменения">Сохранить</button>
       </form>
       <button type="button" class="popup__close-btn" aria-label="Закрыть окно редактирования профиля"></button>
@@ -74,10 +74,10 @@
     <div class="popup__container popup__container_type_form">
       <h2 class="popup__title">Новое место</h2>
       <form class="popup__form" id="add-place-form">
-        <fieldset class="popup__form-inputs">
+        <div class="popup__form-inputs">
           <input type="text" class="popup__form-input" id="add-place-input-title" placeholder="Название">
           <input type="text" class="popup__form-input" id="add-place-input-photourl" placeholder="Ссылка на картинку">
-        </fieldset>
+        </div>
         <button type="submit" class="popup__form-submit-btn" aria-label="Создать карточку">Создать</button>
       </form>
       <button type="button" class="popup__close-btn" aria-label="Закрыть окно добавления нового места"></button>
@@ -111,6 +111,8 @@
     </li>
   </template>
 
+  <script src="./scripts/cards.js" defer></script>
   <script src="./scripts/index.js" defer></script>
+
 </body>
 </html>

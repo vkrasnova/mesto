@@ -1,6 +1,50 @@
-//*** POPUPS (GENERAL) ***//
+/****************************/
+/*** CONSTANT DECLARATION ***/
+/****************************/
 
-// POPUPS => OPEN
+// PROFILE
+
+const profileUserName = document.querySelector('.profile__info-name');
+const profileUserAbout = document.querySelector('.profile__info-about');
+const profileEditButton = document.querySelector('.profile__info-edit-btn');
+const profileAddPlaceButton = document.querySelector('.profile__add-place-btn');
+
+// GALLERY & TEMPLATE for PLACE
+
+const galleryOfPlaces = document.querySelector('.gallery__places');
+const placeTemplate = document.querySelector('#place-template').content;
+
+// POPUPS
+
+const popupCloseButtons = document.querySelectorAll('.popup__close-btn');
+
+// ...... => EDIT PROFILE
+
+const popupEditProfile = document.querySelector('#edit-profile-popup');
+const popupEditProfileForm = popupEditProfile.querySelector('#edit-profile-form');
+const popupInputUserName = popupEditProfile.querySelector('#edit-profile-input-username');
+const popupInputUserAbout = popupEditProfile.querySelector('#edit-profile-input-userabout');
+
+// ...... => ADD PLACE
+
+const popupAddPlace = document.querySelector('#add-place-popup');
+const popupAddPlaceForm = popupAddPlace.querySelector('#add-place-form');
+const popupInputNewPlaceName = popupAddPlace.querySelector('#add-place-input-title');
+const popupInputNewPlacePhotoURL = popupAddPlace.querySelector('#add-place-input-photourl');
+
+// ...... => ZOOM IMAGE
+
+const popupZoom = document.querySelector('#zoom-image-popup');
+const popupZoomImage = popupZoom.querySelector('.popup__image');
+const popupZoomImageTitle = popupZoom.querySelector('.popup__image-title');
+
+
+
+/*****************/
+/*** FUNCTIONS ***/
+/*****************/
+
+// OPEN POPUP
 
 function openPopup(popup) {
 
@@ -8,7 +52,7 @@ function openPopup(popup) {
 
 }
 
-// POPUPS => CLOSE
+// CLOSE POPUP
 
 function closePopup(popup) {
 
@@ -16,44 +60,26 @@ function closePopup(popup) {
 
 }
 
-// POPUPS => CLOSE BUTTONS
-
-const popupCloseButtons = document.querySelectorAll('.popup__close-btn');
-
-popupCloseButtons.forEach(function(btn) {
-  const popup = btn.closest('.popup');
-  btn.addEventListener('click', function() {
-    closePopup(popup);
-  });
-});
-
-//*** GALLERY & PLACES ***//
-
 // CREATE NEW PLACE
 
-function createPlace(PlaceName, PlacePhotoURL) {
+function createPlace(place) {
 
-  const placeTemplate = document.querySelector('#place-template').content;
   const newPlaceElement = placeTemplate.querySelector('.gallery__places-item').cloneNode(true);
 
   //............... => image
 
   const newPlacePhoto = newPlaceElement.querySelector('.place__image');
   
-  newPlacePhoto.src = PlacePhotoURL;
-  newPlacePhoto.alt = PlaceName;
+  newPlacePhoto.src = place.link;
+  newPlacePhoto.alt = place.name;
 
   //........................ => POPUP (ZOOM IMAGE)
 
   newPlacePhoto.addEventListener('click', function() {
-
-    const popupZoom = document.querySelector('#zoom-image-popup');
-    const popupZoomImage = popupZoom.querySelector('.popup__image');
-    const popupZoomImageTitle = popupZoom.querySelector('.popup__image-title');;
     
-    popupZoomImage.src = PlacePhotoURL;
-    popupZoomImage.alt = PlaceName;
-    popupZoomImageTitle.textContent = PlaceName;
+    popupZoomImage.src = place.link;
+    popupZoomImage.alt = place.name;
+    popupZoomImageTitle.textContent = place.name;
     openPopup(popupZoom);
 
   });
@@ -62,7 +88,7 @@ function createPlace(PlaceName, PlacePhotoURL) {
 
   const newPlaceName = newPlaceElement.querySelector('.place__title');
 
-  newPlaceName.textContent = PlaceName;
+  newPlaceName.textContent = place.name;
 
   //............... => like button
 
@@ -88,56 +114,41 @@ function createPlace(PlaceName, PlacePhotoURL) {
 
 // ADD PLACE TO GALLERY
 
-const galleryOfPlaces = document.querySelector('.gallery__places');
+function addPlaceToGallery(place) {
 
-function addPlaceToGallery(placeName, placePhotoURL) {
-
-  const place = createPlace(placeName, placePhotoURL);
+  const newCard = createPlace(place);
   
-  galleryOfPlaces.prepend(place);
+  galleryOfPlaces.prepend(newCard);
 
 }
 
-// ON PAGE LOAD
 
-const initialPlaces = [
-  {
-    name: 'Имеретинcкая низменность',
-    link: './images/photos/imeretinka.jpg',
-  },
-  {
-    name: 'Красная Поляна',
-    link: './images/photos/krasnaya-polyana.jpg',
-  },
-    {
-    name: 'Орджоникидзе',
-    link: './images/photos/ordzhonikidze.jpg',
-  },
-  {
-    name: 'Хоста',
-    link: './images/photos/khosta.jpg',
-  },
-  {
-    name: 'Дендрарий',
-    link: './images/photos/dendrariy.jpg',
-  },
-  {
-    name: 'Роза Хутор',
-    link: './images/photos/rosa-khutor.jpg',
-  }
-]
+
+/****************/
+/*** HANDLERS ***/
+/****************/
+
+// ON PAGE LOAD
 
 initialPlaces.forEach(function(place) {
 
-  addPlaceToGallery(place.name, place.link);
+  addPlaceToGallery(place);
 
 })
 
-//*** POPUP (EDIT PROFILE) ***//
+// POPUPS (GENERAL) => CLOSE BUTTONS
 
-const profileUserName = document.querySelector('.profile__info-name');
-const profileUserAbout = document.querySelector('.profile__info-about');
-const profileEditButton = document.querySelector('.profile__info-edit-btn');
+popupCloseButtons.forEach(function(btn) {
+
+  const popup = btn.closest('.popup');
+
+  btn.addEventListener('click', function() {
+    closePopup(popup);
+  });
+
+});
+
+// POPUP => EDIT PROFILE //
 
 profileEditButton.addEventListener('click', function() {
 
@@ -146,11 +157,6 @@ profileEditButton.addEventListener('click', function() {
   popupInputUserAbout.value = profileUserAbout.textContent;
 
 })
-
-const popupEditProfile = document.querySelector('#edit-profile-popup');
-const popupEditProfileForm = popupEditProfile.querySelector('#edit-profile-form');
-const popupInputUserName = popupEditProfile.querySelector('#edit-profile-input-username');
-const popupInputUserAbout = popupEditProfile.querySelector('#edit-profile-input-userabout');
 
 popupEditProfileForm.addEventListener('submit', function(evt) {
 
@@ -161,9 +167,7 @@ popupEditProfileForm.addEventListener('submit', function(evt) {
 
 });
 
-//*** POPUP (ADD PLACE) ***//
-
-const profileAddPlaceButton = document.querySelector('.profile__add-place-btn');
+// POPUP => ADD PLACE //
 
 profileAddPlaceButton.addEventListener('click', function() {
 
@@ -171,15 +175,14 @@ profileAddPlaceButton.addEventListener('click', function() {
 
 })
 
-const popupAddPlace = document.querySelector('#add-place-popup');
-const popupAddPlaceForm = popupAddPlace.querySelector('#add-place-form');
-const popupInputNewPlaceName = popupAddPlace.querySelector('#add-place-input-title');
-const popupInputNewPlacePhotoURL = popupAddPlace.querySelector('#add-place-input-photourl');
-
 popupAddPlaceForm.addEventListener('submit', function(evt) {
 
+  const newPlace = {};
+  newPlace.name = popupInputNewPlaceName.value;
+  newPlace.link = popupInputNewPlacePhotoURL.value;
+
   evt.preventDefault();
-  addPlaceToGallery(popupInputNewPlaceName.value, popupInputNewPlacePhotoURL.value);
+  addPlaceToGallery(newPlace);
   evt.target.reset();
   closePopup(popupAddPlace);
 
