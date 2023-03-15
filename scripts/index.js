@@ -16,6 +16,7 @@ const placeTemplate = document.querySelector('#place-template').content;
 
 // POPUPS
 
+const popupList = document.querySelectorAll('.popup');
 const popupCloseButtons = document.querySelectorAll('.popup__close-btn');
 
 // ...... => EDIT PROFILE
@@ -65,11 +66,14 @@ function closePopup(popup) {
 // CLOSE POPUP BY ESC
 
 function closeOpenedPopupByEsc(evt) {
+
+  const openedPopup = document.querySelector('.popup_opened');
+
   if (evt.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened');
     closePopup(openedPopup);
   }
-};
+
+}
 
 // CREATE NEW PLACE
 
@@ -145,7 +149,7 @@ initialPlaces.forEach(function(place) {
 
   addPlaceToGallery(place);
 
-})
+});
 
 // POPUPS (GENERAL) => CLOSE BUTTONS
 
@@ -167,7 +171,7 @@ profileEditButton.addEventListener('click', function() {
   popupInputUserName.value = profileUserName.textContent;
   popupInputUserAbout.value = profileUserAbout.textContent;
 
-})
+});
 
 popupEditProfileForm.addEventListener('submit', function(evt) {
 
@@ -184,7 +188,7 @@ profileAddPlaceButton.addEventListener('click', function() {
 
   openPopup(popupAddPlace);
 
-})
+});
 
 popupAddPlaceForm.addEventListener('submit', function(evt) {
 
@@ -197,4 +201,14 @@ popupAddPlaceForm.addEventListener('submit', function(evt) {
   evt.target.reset();
   closePopup(popupAddPlace);
 
+});
+
+// CLOSE POPUP BY CLICKING OUTSIDE
+
+popupList.forEach(function(popup) {
+  popup.addEventListener('mousedown', function(evt) {
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(popup);
+    }
+  })
 });
