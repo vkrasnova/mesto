@@ -1,26 +1,26 @@
 const initialPlaces = [
   {
     name: 'Имеретинcкая низменность',
-    link: './images/photos/imeretinka.jpg',
+    link: './images/photos/imeretinka.webp',
   },
   {
     name: 'Красная Поляна',
-    link: './images/photos/krasnaya-polyana.jpg',
+    link: './images/photos/krasnaya-polyana.webp',
   },
     {
     name: 'Орджоникидзе',
-    link: './images/photos/ordzhonikidze.jpg',
+    link: './images/photos/ordzhonikidze.webp',
   },
   {
     name: 'Хоста',
-    link: './images/photos/khosta.jpg',
+    link: './images/photos/khosta.webp',
   },
   {
     name: 'Дендрарий',
-    link: './images/photos/dendrariy.jpg',
+    link: './images/photos/dendrariy.webp',
   },
   {
     name: 'Роза Хутор',
-    link: './images/photos/rosa-khutor.jpg',
+    link: './images/photos/rosa-khutor.webp',
   }
 ]
