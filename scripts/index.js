@@ -49,6 +49,7 @@ const popupZoomImageTitle = popupZoom.querySelector('.popup__image-title');
 function openPopup(popup) {
 
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeOpenedPopupByEsc);
 
 }
 
@@ -57,8 +58,18 @@ function openPopup(popup) {
 function closePopup(popup) {
 
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeOpenedPopupByEsc);
 
 }
+
+// CLOSE POPUP BY ESC
+
+function closeOpenedPopupByEsc(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
+  }
+};
 
 // CREATE NEW PLACE
 
