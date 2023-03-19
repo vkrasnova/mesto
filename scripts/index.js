@@ -22,16 +22,16 @@ const popupCloseButtons = document.querySelectorAll('.popup__close-btn');
 // ...... => EDIT PROFILE
 
 const popupEditProfile = document.querySelector('#edit-profile-popup');
-const popupEditProfileForm = popupEditProfile.querySelector('#edit-profile-form');
-const popupInputUserName = popupEditProfile.querySelector('#edit-profile-input-username');
-const popupInputUserAbout = popupEditProfile.querySelector('#edit-profile-input-userabout');
+const popupEditProfileForm = document.forms['edit-profile-form'];
+const popupInputUserName = popupEditProfileForm.elements['edit-profile-input-username'];
+const popupInputUserAbout = popupEditProfileForm.elements['edit-profile-input-userabout'];
 
 // ...... => ADD PLACE
 
 const popupAddPlace = document.querySelector('#add-place-popup');
-const popupAddPlaceForm = popupAddPlace.querySelector('#add-place-form');
-const popupInputNewPlaceName = popupAddPlace.querySelector('#add-place-input-title');
-const popupInputNewPlacePhotoURL = popupAddPlace.querySelector('#add-place-input-photourl');
+const popupAddPlaceForm = document.forms['add-place-form'];
+const popupInputNewPlaceName = popupAddPlaceForm.elements['add-place-input-title'];
+const popupInputNewPlacePhotoURL = popupAddPlaceForm.elements['add-place-input-photourl'];
 
 // ...... => ZOOM IMAGE
 
@@ -163,6 +163,20 @@ popupCloseButtons.forEach(function(btn) {
 
 });
 
+// CLOSE POPUP BY CLICKING OUTSIDE
+
+popupList.forEach(function(popup) {
+
+  popup.addEventListener('mousedown', function(evt) {
+
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(popup);
+    }
+    
+  })
+
+});
+
 // POPUP => EDIT PROFILE //
 
 profileEditButton.addEventListener('click', function() {
@@ -201,14 +215,4 @@ popupAddPlaceForm.addEventListener('submit', function(evt) {
   evt.target.reset();
   closePopup(popupAddPlace);
 
-});
-
-// CLOSE POPUP BY CLICKING OUTSIDE
-
-popupList.forEach(function(popup) {
-  popup.addEventListener('mousedown', function(evt) {
-    if (evt.target.classList.contains('popup_opened')) {
-      closePopup(popup);
-    }
-  })
 });

@@ -8,6 +8,8 @@
 
 [Ссылка на макет - Спринт № 5](https://www.figma.com/file/bjyvbKKJN2naO0ucURl2Z0/JavaScript.-Sprint-5)
 
+[Ссылка на макет - Спринт № 6](https://www.figma.com/file/kRVLKwYG3d1HGLvh7JFWRT/JavaScript.-Sprint-6)
+
 ## В работе используются:
 
 * HTML5 и CSS3 – в частности, CSS Flexbox и CSS Grid Layout;

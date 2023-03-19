@@ -1,9 +1,9 @@
 .popup__form-inputs {
-  margin: 48px 0;
+  margin: 48px 0 28px;
   padding: 0;
   display: flex;
   flex-direction: column;
-  row-gap: 30px;
+  row-gap: 13px;
   border: none;
 }
 
