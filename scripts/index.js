@@ -104,6 +104,14 @@ function createPlace(place) {
 
   newPlaceName.textContent = place.name;
 
+  //............... => like button 
+
+  const newPlaceLikeButton = newPlaceElement.querySelector('.place__like-btn'); 
+
+  newPlaceLikeButton.addEventListener('click', function(evt) { 
+    evt.target.classList.toggle('place__like-btn_active'); 
+  });
+
   //............... => delete button
 
   const newPlaceDeleteButton = newPlaceElement.querySelector('.place__delete-btn');
@@ -207,15 +215,5 @@ popupAddPlaceForm.addEventListener('submit', function(evt) {
   evt.submitter.classList.add('popup__form-submit-btn_disabled');
   evt.submitter.disabled = true;
   closePopup(popupAddPlace);
-
-});
-
-// PLACES => LIKE BUTTONS //
-
-galleryOfPlaces.addEventListener('click', function(evt) {
-
-  if (evt.target.classList.contains('place__like-btn')) {
-    evt.target.classList.toggle('place__like-btn_active');
-  }
 
 });
