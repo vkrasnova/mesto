@@ -67,9 +67,8 @@ function closePopup(popup) {
 
 function closeOpenedPopupByEsc(evt) {
 
-  const openedPopup = document.querySelector('.popup_opened');
-
   if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
     closePopup(openedPopup);
   }
 
@@ -205,6 +204,8 @@ popupAddPlaceForm.addEventListener('submit', function(evt) {
   evt.preventDefault();
   addPlaceToGallery(newPlace);
   evt.target.reset();
+  evt.submitter.classList.add('popup__form-submit-btn_disabled');
+  evt.submitter.disabled = true;
   closePopup(popupAddPlace);
 
 });
