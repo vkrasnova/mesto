@@ -1,4 +1,4 @@
-const initialPlaces = [
+export const initialPlaces = [
   {
     name: 'Имеретинcкая низменность',
     link: './images/photos/imeretinka.webp',

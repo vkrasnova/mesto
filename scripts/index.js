@@ -1,3 +1,11 @@
+/***************/
+/*** IMPORTS ***/
+/***************/
+
+import {initialPlaces} from './data/initialPlaces.js';
+import {Card} from './Card.js';
+import {FormValidator} from './FormValidator.js';
+
 /****************************/
 /*** CONSTANT DECLARATION ***/
 /****************************/
@@ -12,7 +20,6 @@ const profileAddPlaceButton = document.querySelector('.profile__add-place-btn');
 // GALLERY & TEMPLATE for PLACE
 
 const galleryOfPlaces = document.querySelector('.gallery__places');
-const placeTemplate = document.querySelector('#place-template').content;
 
 // POPUPS
 
@@ -33,13 +40,19 @@ const popupAddPlaceForm = document.forms['add-place-form'];
 const popupInputNewPlaceName = popupAddPlaceForm.elements['add-place-input-title'];
 const popupInputNewPlacePhotoURL = popupAddPlaceForm.elements['add-place-input-photourl'];
 
-// ...... => ZOOM IMAGE
+// VALIDATION
 
-const popupZoom = document.querySelector('#zoom-image-popup');
-const popupZoomImage = popupZoom.querySelector('.popup__image');
-const popupZoomImageTitle = popupZoom.querySelector('.popup__image-title');
+const validationSettings = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__form-input',
+  submitButtonSelector: '.popup__form-submit-btn',
+  inactiveButtonClass: 'popup__form-submit-btn_disabled',
+  inputErrorClass: 'popup__form-input_type_error',
+  errorClass: 'popup__form-input-error_visible'
+};
 
-
+const editProfileFormValidation = new FormValidator(validationSettings, popupEditProfileForm);
+const addPlaceFormValidation = new FormValidator(validationSettings, popupAddPlaceForm);
 
 /*****************/
 /*** FUNCTIONS ***/
@@ -47,7 +60,7 @@ const popupZoomImageTitle = popupZoom.querySelector('.popup__image-title');
 
 // OPEN POPUP
 
-function openPopup(popup) {
+export function openPopup(popup) {
 
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closeOpenedPopupByEsc);
@@ -76,67 +89,18 @@ function closeOpenedPopupByEsc(evt) {
 
 // CREATE NEW PLACE
 
-function createPlace(place) {
-
-  const newPlaceElement = placeTemplate.querySelector('.gallery__places-item').cloneNode(true);
-
-  //............... => image
-
-  const newPlacePhoto = newPlaceElement.querySelector('.place__image');
-  
-  newPlacePhoto.src = place.link;
-  newPlacePhoto.alt = place.name;
-
-  //........................ => POPUP (ZOOM IMAGE)
-
-  newPlacePhoto.addEventListener('click', function() {
-    
-    popupZoomImage.src = place.link;
-    popupZoomImage.alt = place.name;
-    popupZoomImageTitle.textContent = place.name;
-    openPopup(popupZoom);
-
-  });
-
-  //............... => title
-
-  const newPlaceName = newPlaceElement.querySelector('.place__title');
-
-  newPlaceName.textContent = place.name;
-
-  //............... => like button 
-
-  const newPlaceLikeButton = newPlaceElement.querySelector('.place__like-btn'); 
-
-  newPlaceLikeButton.addEventListener('click', function(evt) { 
-    evt.target.classList.toggle('place__like-btn_active'); 
-  });
-
-  //............... => delete button
-
-  const newPlaceDeleteButton = newPlaceElement.querySelector('.place__delete-btn');
-
-  newPlaceDeleteButton.addEventListener('click', function() {
-    newPlaceElement.remove();
-  });
-
-  // => return
-
-  return newPlaceElement;
-
+function createPlace(place, templateSelector) {
+  const newPlace = new Card(place, templateSelector);
+  return newPlace.generateCard();
 }
 
 // ADD PLACE TO GALLERY
 
-function addPlaceToGallery(place) {
-
-  const newCard = createPlace(place);
+function addPlaceToGallery(place, templateSelector) {
   
-  galleryOfPlaces.prepend(newCard);
+  galleryOfPlaces.prepend(createPlace(place, templateSelector));
 
 }
-
-
 
 /****************/
 /*** HANDLERS ***/
@@ -146,7 +110,7 @@ function addPlaceToGallery(place) {
 
 initialPlaces.forEach(function(place) {
 
-  addPlaceToGallery(place);
+  addPlaceToGallery(place, '#place-template');
 
 });
 
@@ -210,10 +174,15 @@ popupAddPlaceForm.addEventListener('submit', function(evt) {
   newPlace.link = popupInputNewPlacePhotoURL.value;
 
   evt.preventDefault();
-  addPlaceToGallery(newPlace);
+  addPlaceToGallery(newPlace, '#place-template');
   evt.target.reset();
   evt.submitter.classList.add('popup__form-submit-btn_disabled');
   evt.submitter.disabled = true;
   closePopup(popupAddPlace);
 
 });
+
+// ADD VALIDATION TO FORMS
+
+editProfileFormValidation.enableValidation();
+addPlaceFormValidation.enableValidation();
