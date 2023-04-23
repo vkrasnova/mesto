@@ -1,4 +1,4 @@
-import {openPopup} from './index.js';
+import {openPopup} from '../utils/utils.js';
 
 const popupZoom = document.querySelector('#zoom-image-popup');
 const popupZoomImage = popupZoom.querySelector('.popup__image');

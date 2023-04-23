@@ -2,9 +2,19 @@
 /*** IMPORTS ***/
 /***************/
 
-import {initialPlaces} from './data/initialPlaces.js';
-import {Card} from './Card.js';
-import {FormValidator} from './FormValidator.js';
+// CONSTANTS
+
+import {initialPlaces} from '../data/initialPlaces.js';
+import {validationSettings} from '../data/validationSettings.js';
+
+// CLASSES
+
+import {FormValidator} from '../classes/FormValidator.js';
+
+// UTILS
+
+import {openPopup, closePopup, addPlaceToGallery} from '../utils/utils.js';
+
 
 /****************************/
 /*** CONSTANT DECLARATION ***/
@@ -16,10 +26,6 @@ const profileUserName = document.querySelector('.profile__info-name');
 const profileUserAbout = document.querySelector('.profile__info-about');
 const profileEditButton = document.querySelector('.profile__info-edit-btn');
 const profileAddPlaceButton = document.querySelector('.profile__add-place-btn');
-
-// GALLERY & TEMPLATE for PLACE
-
-const galleryOfPlaces = document.querySelector('.gallery__places');
 
 // POPUPS
 
@@ -42,65 +48,10 @@ const popupInputNewPlacePhotoURL = popupAddPlaceForm.elements['add-place-input-p
 
 // VALIDATION
 
-const validationSettings = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__form-input',
-  submitButtonSelector: '.popup__form-submit-btn',
-  inactiveButtonClass: 'popup__form-submit-btn_disabled',
-  inputErrorClass: 'popup__form-input_type_error',
-  errorClass: 'popup__form-input-error_visible'
-};
-
 const editProfileFormValidation = new FormValidator(validationSettings, popupEditProfileForm);
 const addPlaceFormValidation = new FormValidator(validationSettings, popupAddPlaceForm);
 
-/*****************/
-/*** FUNCTIONS ***/
-/*****************/
 
-// OPEN POPUP
-
-export function openPopup(popup) {
-
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closeOpenedPopupByEsc);
-
-}
-
-// CLOSE POPUP
-
-function closePopup(popup) {
-
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closeOpenedPopupByEsc);
-
-}
-
-// CLOSE POPUP BY ESC
-
-function closeOpenedPopupByEsc(evt) {
-
-  if (evt.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened');
-    closePopup(openedPopup);
-  }
-
-}
-
-// CREATE NEW PLACE
-
-function createPlace(place, templateSelector) {
-  const newPlace = new Card(place, templateSelector);
-  return newPlace.generateCard();
-}
-
-// ADD PLACE TO GALLERY
-
-function addPlaceToGallery(place, templateSelector) {
-  
-  galleryOfPlaces.prepend(createPlace(place, templateSelector));
-
-}
 
 /****************/
 /*** HANDLERS ***/
@@ -176,10 +127,8 @@ popupAddPlaceForm.addEventListener('submit', function(evt) {
   evt.preventDefault();
   addPlaceToGallery(newPlace, '#place-template');
   evt.target.reset();
-  evt.submitter.classList.add('popup__form-submit-btn_disabled');
-  evt.submitter.disabled = true;
+  addPlaceFormValidation.disableSubmitButton();
   closePopup(popupAddPlace);
-
 });
 
 // ADD VALIDATION TO FORMS
