@@ -2,13 +2,14 @@
 /*** IMPORTS ***/
 /***************/
 
-// DATA
+// CONSTANTS
 
-import {initialPlaces} from '../data/initialPlaces.js';
+import {initialPlaces} from '../utils/initialPlaces.js';
 
-// CLASSES
+// COMPONENTS
 
-import {FormValidator} from '../classes/FormValidator.js';
+import {Card} from '../components/Card.js';
+import {FormValidator} from '../components/FormValidator.js';
 
 // UTILS
 
