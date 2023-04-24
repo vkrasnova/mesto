@@ -2,7 +2,7 @@
 /*** IMPORTS ***/
 /***************/
 
-// CONSTANTS
+// DATA
 
 import {initialPlaces} from '../data/initialPlaces.js';
 
@@ -12,7 +12,8 @@ import {FormValidator} from '../classes/FormValidator.js';
 
 // UTILS
 
-import {openPopup, closePopup, addPlaceToGallery} from '../utils/utils.js';
+import {openPopup, closePopup} from '../utils/utils.js';
+
 
 
 /****************************/
@@ -25,6 +26,10 @@ const profileUserName = document.querySelector('.profile__info-name');
 const profileUserAbout = document.querySelector('.profile__info-about');
 const profileEditButton = document.querySelector('.profile__info-edit-btn');
 const profileAddPlaceButton = document.querySelector('.profile__add-place-btn');
+
+// GALLERY
+
+const galleryOfPlaces = document.querySelector('.gallery__places');
 
 // POPUPS
 
@@ -60,6 +65,27 @@ const validationSettings = {
 
 const editProfileFormValidation = new FormValidator(validationSettings, popupEditProfileForm);
 const addPlaceFormValidation = new FormValidator(validationSettings, popupAddPlaceForm);
+
+
+
+/*****************/
+/*** FUNCTIONS ***/
+/*****************/
+
+// CREATE NEW PLACE
+
+function createPlace(place, templateSelector) {
+  const newPlace = new Card(place, templateSelector);
+  return newPlace.generateCard();
+}
+
+// ADD PLACE TO GALLERY
+
+function addPlaceToGallery(place, templateSelector) {
+  
+  galleryOfPlaces.prepend(createPlace(place, templateSelector));
+
+}
 
 
 

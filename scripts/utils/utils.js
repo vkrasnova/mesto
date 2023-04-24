@@ -1,19 +1,3 @@
-/***************/
-/*** IMPORTS ***/
-/***************/
-
-import {Card} from '../classes/Card.js';
-
-
-
-/****************************/
-/*** CONSTANT DECLARATION ***/
-/****************************/
-
-const galleryOfPlaces = document.querySelector('.gallery__places');
-
-
-
 /*****************/
 /*** FUNCTIONS ***/
 /*****************/
@@ -47,25 +31,10 @@ function closeOpenedPopupByEsc(evt) {
 
 }
 
-// CREATE NEW PLACE
-
-function createPlace(place, templateSelector) {
-  const newPlace = new Card(place, templateSelector);
-  return newPlace.generateCard();
-}
-
-// ADD PLACE TO GALLERY
-
-function addPlaceToGallery(place, templateSelector) {
-  
-  galleryOfPlaces.prepend(createPlace(place, templateSelector));
-
-}
-
 
 
 /***************/
 /*** EXPORTS ***/
 /***************/
 
-export {openPopup, closePopup, addPlaceToGallery};
+export {openPopup, closePopup};
