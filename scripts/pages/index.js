@@ -5,7 +5,6 @@
 // CONSTANTS
 
 import {initialPlaces} from '../data/initialPlaces.js';
-import {validationSettings} from '../data/validationSettings.js';
 
 // CLASSES
 
@@ -47,6 +46,17 @@ const popupInputNewPlaceName = popupAddPlaceForm.elements['add-place-input-title
 const popupInputNewPlacePhotoURL = popupAddPlaceForm.elements['add-place-input-photourl'];
 
 // VALIDATION
+
+const validationSettings = {
+
+  formSelector: '.popup__form',
+  inputSelector: '.popup__form-input',
+  submitButtonSelector: '.popup__form-submit-btn',
+  inactiveButtonClass: 'popup__form-submit-btn_disabled',
+  inputErrorClass: 'popup__form-input_type_error',
+  errorClass: 'popup__form-input-error_visible'
+  
+};
 
 const editProfileFormValidation = new FormValidator(validationSettings, popupEditProfileForm);
 const addPlaceFormValidation = new FormValidator(validationSettings, popupAddPlaceForm);
