@@ -1,10 +1,6 @@
-/*****************/
-/*** FUNCTIONS ***/
-/*****************/
-
 // OPEN POPUP
 
-function openPopup(popup) {
+export function openPopup(popup) {
 
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closeOpenedPopupByEsc);
@@ -13,7 +9,7 @@ function openPopup(popup) {
 
 // CLOSE POPUP
 
-function closePopup(popup) {
+export function closePopup(popup) {
 
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closeOpenedPopupByEsc);
@@ -30,11 +26,3 @@ function closeOpenedPopupByEsc(evt) {
   }
 
 }
-
-
-
-/***************/
-/*** EXPORTS ***/
-/***************/
-
-export {openPopup, closePopup};
