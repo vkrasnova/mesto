@@ -4,146 +4,108 @@
 
 // COMPONENTS
 
-import {Card} from '../components/Card.js';
-import {FormValidator} from '../components/FormValidator.js';
+import { Section } from '../components/Section.js';
+import { UserInfo } from '../components/UserInfo.js';
+import { Card } from '../components/Card.js';
+import { PopupWithImage } from '../components/PopupWithImage.js';
+import { PopupWithForm } from '../components/PopupWithForm.js';
+import { FormValidator } from '../components/FormValidator.js';
 
 // CONSTANTS
 
-import {initialPlaces} from '../utils/initialPlaces.js';
+import { initialPlaces } from '../utils/initialPlaces.js';
 import {
-  profileUserName,
-  profileUserAbout,
   profileEditButton,
-  profileAddPlaceButton,
-  galleryOfPlaces,
-  popupList,
-  popupCloseButtons,
-  popupEditProfile,
   popupEditProfileForm,
+  profileAddPlaceButton,
+  popupAddPlaceForm,
   popupInputUserName,
   popupInputUserAbout,
-  popupAddPlace,
-  popupAddPlaceForm,
-  popupInputNewPlaceName,
-  popupInputNewPlacePhotoURL,
   validationSettings
 } from '../utils/constants.js';
 
-// UTILS
-
-import {openPopup, closePopup} from '../utils/utils.js';
 
 
+/***************/
+/*** PROFILE ***/
+/***************/
 
-/****************************/
-/*** CONSTANT DECLARATION ***/
-/****************************/
-
-const editProfileFormValidation = new FormValidator(validationSettings, popupEditProfileForm);
-const addPlaceFormValidation = new FormValidator(validationSettings, popupAddPlaceForm);
+const userInfo = new UserInfo({
+  userNameSelector: '.profile__info-name',
+  userAboutSelector: '.profile__info-about'
+});
 
 
+const popupEditProfile = new PopupWithForm({
+  popupSelector: '#edit-profile-popup',
+  handleFormSubmit: ({
+    'edit-profile-input-username': userName,
+    'edit-profile-input-userabout': userAbout
+  }) => {
+    userInfo.setUserInfo({ userName, userAbout });
+  }
+});
+popupEditProfile.setEventListeners();
 
-/*****************/
-/*** FUNCTIONS ***/
-/*****************/
 
-// CREATE NEW PLACE
+profileEditButton.addEventListener('click', () => {
+  const { userName, userAbout } = userInfo.getUserInfo();
+  popupInputUserName.value = userName;
+  popupInputUserAbout.value = userAbout;
+  editProfileFormValidation.hideInputErrors();
+  popupEditProfile.open();
+});
 
-function createPlace(place, templateSelector) {
-  const newPlace = new Card(place, templateSelector);
+// BUTTON & POPUP TO ADD A NEW PLACE
+
+const popupAddPlace = new PopupWithForm({
+  popupSelector: '#add-place-popup',
+  handleFormSubmit: ({
+    'add-place-input-title': name,
+    'add-place-input-photourl': link,
+  }) => {
+    gallery.addItem(createPlace({name, link}));
+  }
+});
+popupAddPlace.setEventListeners();
+
+profileAddPlaceButton.addEventListener('click', () => {
+  addPlaceFormValidation.hideInputErrors();
+  popupAddPlace.open();
+});
+
+/***************/
+/*** GALLERY ***/
+/***************/
+
+const popupWithImage = new PopupWithImage('.popup_type_image');
+popupWithImage.setEventListeners();
+
+function createPlace(place) {
+  const newPlace = new Card(place, '#place-template', () => {
+    popupWithImage.open({
+      name: place.name,
+      link: place.link
+    });
+  });
   return newPlace.generateCard();
 }
 
-// ADD PLACE TO GALLERY
+const gallery = new Section({
+  items: initialPlaces,
+  renderer: (item) => {
+    gallery.addItem(createPlace(item));
+  }
+}, '.gallery__places'
+);
+gallery.renderItems();
 
-function addPlaceToGallery(place, templateSelector) {
-  
-  galleryOfPlaces.prepend(createPlace(place, templateSelector));
+/******************/
+/*** VALIDATION ***/
+/******************/
 
-}
-
-
-
-/****************/
-/*** HANDLERS ***/
-/****************/
-
-// ON PAGE LOAD
-
-initialPlaces.forEach(function(place) {
-
-  addPlaceToGallery(place, '#place-template');
-
-});
-
-// POPUPS (GENERAL) => CLOSE BUTTONS
-
-popupCloseButtons.forEach(function(btn) {
-
-  const popup = btn.closest('.popup');
-
-  btn.addEventListener('click', function() {
-    closePopup(popup);
-  });
-
-});
-
-// CLOSE POPUP BY CLICKING OUTSIDE
-
-popupList.forEach(function(popup) {
-
-  popup.addEventListener('mousedown', function(evt) {
-
-    if (evt.target.classList.contains('popup_opened')) {
-      closePopup(popup);
-    }
-    
-  })
-
-});
-
-// POPUP => EDIT PROFILE //
-
-profileEditButton.addEventListener('click', function() {
-
-  openPopup(popupEditProfile);
-  popupInputUserName.value = profileUserName.textContent;
-  popupInputUserAbout.value = profileUserAbout.textContent;
-
-});
-
-popupEditProfileForm.addEventListener('submit', function(evt) {
-
-  evt.preventDefault();
-  profileUserName.textContent = popupInputUserName.value;
-  profileUserAbout.textContent = popupInputUserAbout.value;
-  closePopup(popupEditProfile);
-
-});
-
-// POPUP => ADD PLACE //
-
-profileAddPlaceButton.addEventListener('click', function() {
-
-  openPopup(popupAddPlace);
-
-});
-
-popupAddPlaceForm.addEventListener('submit', function(evt) {
-
-  const newPlace = {};
-  newPlace.name = popupInputNewPlaceName.value;
-  newPlace.link = popupInputNewPlacePhotoURL.value;
-
-  evt.preventDefault();
-  addPlaceToGallery(newPlace, '#place-template');
-  evt.target.reset();
-  addPlaceFormValidation.disableSubmitButton();
-  closePopup(popupAddPlace);
-});
-
-// ADD VALIDATION TO FORMS
-
+const editProfileFormValidation = new FormValidator(validationSettings, popupEditProfileForm);
 editProfileFormValidation.enableValidation();
+
+const addPlaceFormValidation = new FormValidator(validationSettings, popupAddPlaceForm);
 addPlaceFormValidation.enableValidation();

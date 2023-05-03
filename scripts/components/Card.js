@@ -1,16 +1,11 @@
-import {openPopup} from '../utils/utils.js';
-
-const popupZoom = document.querySelector('#zoom-image-popup');
-const popupZoomImage = popupZoom.querySelector('.popup__image');
-const popupZoomImageTitle = popupZoom.querySelector('.popup__image-title');
-
 export class Card {
 
-  constructor(place, templateSelector) {
+  constructor(place, templateSelector, handleCardClick) {
 
     this._cardName = place.name;
     this._cardPhotoLink = place.link;
     this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick;
 
     this._newCardElement = this._getTemplate();
     this._newCardPhoto = this._newCardElement.querySelector('.place__image');
@@ -18,7 +13,7 @@ export class Card {
     this._newCardLikeButton = this._newCardElement.querySelector('.place__like-btn');
     this._newCardDeleteButton = this._newCardElement.querySelector('.place__delete-btn');
     
-  };
+  }
 
   _getTemplate = () => {
 
@@ -31,20 +26,10 @@ export class Card {
     return newCardElement;
 
   }
-
-  _addCardZoom = () => {
-
-    popupZoomImage.src = this._cardPhotoLink;
-    popupZoomImage.alt = this._cardName;
-    popupZoomImageTitle.textContent = this._cardName;
-
-    openPopup(popupZoom);
-
-  }
   
   _setEventListeners = () => {
 
-    this._newCardPhoto.addEventListener('click', this._addCardZoom);
+    this._newCardPhoto.addEventListener('click', this._handleCardClick);
 
     this._newCardLikeButton.addEventListener('click', (evt) => {
       evt.target.classList.toggle('place__like-btn_active');
@@ -65,6 +50,7 @@ export class Card {
     this._setEventListeners();
 
     return this._newCardElement;
+
   }
 
 }
