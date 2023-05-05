@@ -2,6 +2,10 @@
 /*** IMPORTS ***/
 /***************/
 
+// CSS
+
+import './index.css';
+
 // COMPONENTS
 
 import { Section } from '../components/Section.js';

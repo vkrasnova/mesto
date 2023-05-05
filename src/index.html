@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Сервис Mesto</title>
 </head>
 <body class="page">
@@ -13,7 +12,7 @@
 
   <header class="header">
     <a href="./index.html" class="header__logo">
-      <img src="./images/logo.svg" alt="Логотип Mesto" class="header__logo-image">
+      <img src="<%=require('./images/logo.svg')%>" alt="Логотип Mesto" class="header__logo-image">
     </a>
   </header>
 
@@ -25,7 +24,7 @@
 
     <section class="profile" aria-label="Профиль">
       <div class="profile__main">
-        <img src="./images/profile-avatar.webp" alt="Аватар профиля" class="profile__avatar">
+        <img src="<%=require('./images/profile-avatar.webp')%>" alt="Аватар профиля" class="profile__avatar">
         <div class="profile__info">
           <div class="profile__info-main">
             <h1 class="profile__info-name">Кот Леопольд</h1>
@@ -101,7 +100,7 @@
   <section class="popup popup_type_image" id="zoom-image-popup" aria-label="Увеличенное фото места">
     <div class="popup__container popup__container_type_image">
       <figure class="popup__figure">
-        <img src="#" alt="#" class="popup__image">
+        <img class="popup__image">
         <figcaption class="popup__image-title"></figcaption>
       </figure>
       <button type="button" class="popup__close-btn" aria-label="Закрыть окно c увеличенным фото"></button>
@@ -113,7 +112,7 @@
   <template id="place-template">
     <li class="gallery__places-item">
       <article class="place"> 
-        <img src="#" alt="#" class="place__image">
+        <img class="place__image">
         <div class="place__footer">
           <h2 class="place__title"></h2>
           <button type="button" class="place__like-btn" aria-label="Мне нравится"></button>
@@ -122,8 +121,6 @@
       </article>
     </li>
   </template>
-
-  <script type="module" src="./scripts/pages/index.js"></script>
 
 </body>
 </html>
