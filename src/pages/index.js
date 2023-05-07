@@ -75,6 +75,7 @@ popupAddPlace.setEventListeners();
 
 profileAddPlaceButton.addEventListener('click', () => {
   addPlaceFormValidation.hideInputErrors();
+  addPlaceFormValidation.disableSubmitButton();
   popupAddPlace.open();
 });
 
