@@ -54,8 +54,10 @@ popupEditProfile.setEventListeners();
 
 profileEditButton.addEventListener('click', () => {
   const { userName, userAbout } = userInfo.getUserInfo();
-  popupInputUserName.value = userName;
-  popupInputUserAbout.value = userAbout;
+  popupEditProfile.setInputValues({
+    'edit-profile-input-username': userName,
+    'edit-profile-input-userabout': userAbout
+  });
   editProfileFormValidation.hideInputErrors();
   popupEditProfile.open();
 });
