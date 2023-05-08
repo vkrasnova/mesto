@@ -18,13 +18,9 @@ import { FormValidator } from '../components/FormValidator.js';
 // CONSTANTS
 
 import { initialPlaces } from '../utils/initialPlaces.js';
-import {
+import { 
   profileEditButton,
-  popupEditProfileForm,
   profileAddPlaceButton,
-  popupAddPlaceForm,
-  popupInputUserName,
-  popupInputUserAbout,
   validationSettings
 } from '../utils/constants.js';
 
@@ -58,7 +54,7 @@ profileEditButton.addEventListener('click', () => {
     'edit-profile-input-username': userName,
     'edit-profile-input-userabout': userAbout
   });
-  editProfileFormValidation.hideInputErrors();
+  formValidators['edit-profile-form'].hideInputErrors();
   popupEditProfile.open();
 });
 
@@ -76,10 +72,12 @@ const popupAddPlace = new PopupWithForm({
 popupAddPlace.setEventListeners();
 
 profileAddPlaceButton.addEventListener('click', () => {
-  addPlaceFormValidation.hideInputErrors();
-  addPlaceFormValidation.disableSubmitButton();
+  formValidators['add-place-form'].hideInputErrors();
+  formValidators['add-place-form'].disableSubmitButton();
   popupAddPlace.open();
 });
+
+
 
 /***************/
 /*** GALLERY ***/
@@ -107,12 +105,27 @@ const gallery = new Section({
 );
 gallery.renderItems();
 
+
+
 /******************/
 /*** VALIDATION ***/
 /******************/
 
-const editProfileFormValidation = new FormValidator(validationSettings, popupEditProfileForm);
-editProfileFormValidation.enableValidation();
+const formValidators = {}
 
-const addPlaceFormValidation = new FormValidator(validationSettings, popupAddPlaceForm);
-addPlaceFormValidation.enableValidation();
+const enableValidation = (validationSettings) => {
+
+  const formList = Array.from(document.querySelectorAll(validationSettings.formSelector));
+
+  formList.forEach((formElement) => {
+
+    const validator = new FormValidator(validationSettings, formElement);
+    const formName = formElement.getAttribute('name');
+    formValidators[formName] = validator;
+    validator.enableValidation();
+
+  });
+
+};
+
+enableValidation(validationSettings);
