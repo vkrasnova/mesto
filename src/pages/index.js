@@ -61,7 +61,7 @@ Promise.all([api.getUserInfo(), api.getInitialPlaces()])
   gallery.renderItems(initialPlaces.reverse());
 })
 .catch((err) => {
-  console.log(err);
+  alert(`${err}. Попробуйте еще раз.`);
 })
 
 
@@ -86,8 +86,7 @@ const popupUpdateAvatar = new PopupWithForm({
       popupUpdateAvatar.close();
     })
     .catch((err) => {
-      console.log(err);
-      formValidators['update-avatar-form'].disableSubmitButton();
+      alert(`${err}. Проверьте данные и попробуйте еще раз.`)
     })
     .finally(() => {
       popupUpdateAvatar.renderLoading(false)
@@ -126,8 +125,7 @@ const popupEditProfile = new PopupWithForm({
       popupEditProfile.close();
     })
     .catch((err) => {
-      console.log(err);
-      formValidators['edit-profile-form'].disableSubmitButton();
+      alert(`${err}. Проверьте данные и попробуйте еще раз.`);
     })
     .finally(() => {
       popupEditProfile.renderLoading(false)
@@ -163,8 +161,7 @@ const popupAddPlace = new PopupWithForm({
       popupAddPlace.close();
     })
     .catch((err) => {
-      console.log(err);
-      formValidators['add-place-form'].disableSubmitButton();
+      alert(`${err}. Проверьте данные и попробуйте еще раз.`);
     })
     .finally(() => {
       popupAddPlace.renderLoading(false)
@@ -214,10 +211,10 @@ function createCard(item, userID) {
           api.deleteCard(cardID)
           .then(() => {
             newCard.deleteCard();
+            popupToDeleteCard.close();
           })
           .catch((err) => {
-            console.log(err);
-            formValidators['delete-place-form'].disableSubmitButton();
+            alert(`${err}. Попробуйте еще раз.`);
           })
           .finally(() => {
             popupToDeleteCard.renderLoading(false, '')
@@ -231,7 +228,7 @@ function createCard(item, userID) {
           newCard.getLikes(res);
         })
         .catch((err) => {
-          console.log(err);
+          alert(`${err}. Попробуйте еще раз.`);
         })
       },
 
@@ -241,7 +238,7 @@ function createCard(item, userID) {
           newCard.getLikes(res);
         })
         .catch((err) => {
-          console.log(err);
+          alert(`${err}. Попробуйте еще раз.`);
         })
       }
 
