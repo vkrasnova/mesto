@@ -8,17 +8,19 @@ import './index.css';
 
 // COMPONENTS
 
+import { Api } from '../components/Api.js';
 import { Section } from '../components/Section.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { Card } from '../components/Card.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
+import { PopupToConfirm } from '../components/PopupToConfirm.js';
 import { FormValidator } from '../components/FormValidator.js';
 
 // CONSTANTS
 
-import { initialPlaces } from '../utils/initialPlaces.js';
 import { 
+  avatar,
   profileEditButton,
   profileAddPlaceButton,
   validationSettings
@@ -26,15 +28,85 @@ import {
 
 
 
+/**********************************************/
+/*** DECLARATION OF CONSTANTS AND VARIABLES ***/
+/**********************************************/
+
+let userID;
+
+const api = new Api({
+  url: "https://mesto.nomoreparties.co/v1/cohort-65",
+  headers: {
+    authorization:
+      "caa9776b-e67a-468e-a1fe-7b61e8271d58",
+      "Content-Type": "application/json",
+  }
+})
+
+
+/*************************************************/
+/*** LOADING A USER PROFILE AND INITIAL CARDS ***/
+/*************************************************/
+
+Promise.all([api.getUserInfo(), api.getInitialPlaces()])
+.then(([userData, initialPlaces]) => {
+  userID = userData._id;
+  userInfo.setUserInfo({
+    userName: userData.name,
+    userAbout: userData.about
+  });
+  userInfo.setUserAvatar({
+    userAvatar: userData.avatar
+  });
+  gallery.renderItems(initialPlaces.reverse());
+})
+.catch((err) => {
+  console.log(err);
+})
+
+
+
 /***************/
 /*** PROFILE ***/
 /***************/
 
-const userInfo = new UserInfo({
-  userNameSelector: '.profile__info-name',
-  userAboutSelector: '.profile__info-about'
+// AVATAR
+
+const popupUpdateAvatar = new PopupWithForm({
+  popupSelector: '#update-avatar-popup',
+  handleFormSubmit: ({
+    'update-avatar-input-url': newUserAvatarLink
+  }) => {
+    popupUpdateAvatar.renderLoading(true);
+    api.updateUserAvatar(newUserAvatarLink)
+    .then(({ avatar }) => {
+      userInfo.setUserAvatar({
+        userAvatar: avatar
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      popupUpdateAvatar.renderLoading(false)
+    })
+  }
+});
+popupUpdateAvatar.setEventListeners();
+
+avatar.addEventListener('click', () => {
+  formValidators['update-avatar-form'].hideInputErrors();
+  formValidators['update-avatar-form'].disableSubmitButton();
+  popupUpdateAvatar.open();
 });
 
+// USER INFO
+
+const userInfo = new UserInfo({
+  userNameSelector: '.profile__info-name',
+  userAboutSelector: '.profile__info-about',
+  userAvatarSelector: '.profile__avatar'
+});
 
 const popupEditProfile = new PopupWithForm({
   popupSelector: '#edit-profile-popup',
@@ -42,7 +114,20 @@ const popupEditProfile = new PopupWithForm({
     'edit-profile-input-username': userName,
     'edit-profile-input-userabout': userAbout
   }) => {
-    userInfo.setUserInfo({ userName, userAbout });
+    popupEditProfile.renderLoading(true);
+    api.setUserInfo({ userName, userAbout })
+    .then(({ name, about }) => {
+      userInfo.setUserInfo({
+        userName: name,
+        userAbout: about
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      popupEditProfile.renderLoading(false)
+    })
   }
 });
 popupEditProfile.setEventListeners();
@@ -55,6 +140,7 @@ profileEditButton.addEventListener('click', () => {
     'edit-profile-input-userabout': userAbout
   });
   formValidators['edit-profile-form'].hideInputErrors();
+  formValidators['edit-profile-form'].disableSubmitButton();
   popupEditProfile.open();
 });
 
@@ -66,7 +152,17 @@ const popupAddPlace = new PopupWithForm({
     'add-place-input-title': name,
     'add-place-input-photourl': link,
   }) => {
-    gallery.addItem(createPlace({name, link}));
+    popupAddPlace.renderLoading(true);
+    api.addNewCard({ name, link })
+    .then((res) => {
+      gallery.addItem(createCard(res, userID))
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      popupAddPlace.renderLoading(false)
+    })
   }
 });
 popupAddPlace.setEventListeners();
@@ -86,24 +182,74 @@ profileAddPlaceButton.addEventListener('click', () => {
 const popupWithImage = new PopupWithImage('.popup_type_image');
 popupWithImage.setEventListeners();
 
-function createPlace(place) {
-  const newPlace = new Card(place, '#place-template', () => {
-    popupWithImage.open({
-      name: place.name,
-      link: place.link
-    });
-  });
-  return newPlace.generateCard();
+const popupToDeleteCard = new PopupToConfirm({ popupSelector: '#delete-place-popup'});
+popupToDeleteCard.setEventListeners();
+
+function createCard(item, userID) {
+
+  const newCard = new Card(
+
+    item,
+    '#place-template',
+    userID,
+    {
+
+      handleCardClick: () => {
+        popupWithImage.open({
+          name: item.name,
+          link: item.link
+        })
+      },
+
+      handleCardDelete: (cardID) => {
+        popupToDeleteCard.open();
+        popupToDeleteCard.setSubmitAction(function() {
+          popupToDeleteCard.renderLoading(true, 'Удаление...');
+          api.deleteCard(cardID)
+          .then(() => {
+            newCard.deleteCard();
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(() => {
+            popupToDeleteCard.renderLoading(false, '')
+          })
+        })
+      },
+
+      handlePutLike: (cardID) => {
+        api.putLike(cardID)
+        .then((res) => {
+          newCard.getLikes(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+      },
+
+      handleDeleteLike: (cardID) => {
+        api.deleteLike(cardID)
+        .then((res) => {
+          newCard.getLikes(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+      }
+
+    }
+  );
+
+  return newCard.generateCard();
 }
 
+
 const gallery = new Section({
-  items: initialPlaces,
   renderer: (item) => {
-    gallery.addItem(createPlace(item));
+    gallery.addItem(createCard(item, userID));
   }
-}, '.gallery__places'
-);
-gallery.renderItems();
+}, '.gallery__places');
 
 
 

@@ -24,11 +24,13 @@
 
     <section class="profile" aria-label="Профиль">
       <div class="profile__main">
-        <img src="<%=require('./images/profile-avatar.webp')%>" alt="Аватар профиля" class="profile__avatar">
+        <div class="profile__avatar-container">
+          <img src="<%=require('./images/profile-avatar.webp')%>" alt="Аватар профиля" class="profile__avatar">
+        </div>
         <div class="profile__info">
           <div class="profile__info-main">
             <h1 class="profile__info-name">Кот Леопольд</h1>
-            <p class="profile__info-about">Исследователь Сочи</p>
+            <p class="profile__info-about">Исследователь мира</p>
           </div>
           <button type="button" class="profile__info-edit-btn" aria-label="Редактировать профиль"></button>
         </div>
@@ -51,7 +53,25 @@
     <p class="footer__copyright">&copy; 2023 Mesto Russia</p>
   </footer>
 
-  <!-- POPUP for PROFILE EDITING-->
+    <!-- POPUP to UPDATE AVATAR -->
+
+    <section class="popup popup_type_form" id="update-avatar-popup" aria-label="Окно обновления аватара">
+      <div class="popup__container popup__container_type_form">
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form class="popup__form" name="update-avatar-form" novalidate>
+          <div class="popup__form-inputs">
+            <div class="popup__form-input-container">
+              <input type="url" class="popup__form-input" name="update-avatar-input-url" placeholder="Ссылка на картинку" required>
+              <span class="popup__form-input-error update-avatar-input-url-error"></span>
+            </div>
+          </div>
+          <button type="submit" class="popup__form-submit-btn" aria-label="Сохранить аватар">Сохранить</button>
+        </form>
+        <button type="button" class="popup__close-btn" aria-label="Закрыть окно обновления аватара"></button>
+      </div>
+    </section>
+
+  <!-- POPUP to EDIT PROFILE -->
 
   <section class="popup popup_type_form" id="edit-profile-popup" aria-label="Окно редактирования профиля">
     <div class="popup__container popup__container_type_form">
@@ -73,7 +93,7 @@
     </div>
   </section>
 
-  <!-- POPUP for PLACE ADDING-->
+  <!-- POPUP to ADD PLACE -->
 
   <section class="popup popup_type_form" id="add-place-popup" aria-label="Окно добавления нового места">
     <div class="popup__container popup__container_type_form">
@@ -95,7 +115,19 @@
     </div>
   </section>
 
-  <!-- POPUP for IMAGE-->
+  <!-- POPUP to DELETE PLACE -->
+
+  <section class="popup popup_type_form" id="delete-place-popup" aria-label="Окно удаления места">
+    <div class="popup__container popup__container_type_form">
+      <h2 class="popup__title">Вы уверены?</h2>
+      <form class="popup__form popup__form_only-submit" name="delete-place-form">
+        <button type="submit" class="popup__form-submit-btn" aria-label="Удалить карточку">Да</button>
+      </form>
+      <button type="button" class="popup__close-btn" aria-label="Закрыть окно удаления места"></button>
+    </div>
+  </section>
+
+  <!-- POPUP to ZOOM IMAGE -->
 
   <section class="popup popup_type_image" id="zoom-image-popup" aria-label="Увеличенное фото места">
     <div class="popup__container popup__container_type_image">
@@ -115,7 +147,11 @@
         <img class="place__image">
         <div class="place__footer">
           <h2 class="place__title"></h2>
-          <button type="button" class="place__like-btn" aria-label="Мне нравится"></button>
+          <div class="place__like-container">
+            <button type="button" class="place__like-btn" aria-label="Мне нравится"></button>
+            <span class="place__like-qty">0</span>
+          </div>
+          
         </div>
         <button type="button" class="place__delete-btn" aria-label="Удалить фото"></button>
       </article>

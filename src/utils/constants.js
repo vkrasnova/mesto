@@ -1,10 +1,15 @@
 // BUTTONS
 
+export const avatar = document
+  .querySelector('.profile__avatar');
+  
 export const profileEditButton = document
   .querySelector('.profile__info-edit-btn');
 
 export const profileAddPlaceButton = document
   .querySelector('.profile__add-place-btn');
+
+
 
 // SETTINGS FOR VALIDATION
 
