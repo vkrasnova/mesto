@@ -83,9 +83,11 @@ const popupUpdateAvatar = new PopupWithForm({
       userInfo.setUserAvatar({
         userAvatar: avatar
       });
+      popupUpdateAvatar.close();
     })
     .catch((err) => {
       console.log(err);
+      formValidators['update-avatar-form'].disableSubmitButton();
     })
     .finally(() => {
       popupUpdateAvatar.renderLoading(false)
@@ -121,9 +123,11 @@ const popupEditProfile = new PopupWithForm({
         userName: name,
         userAbout: about
       });
+      popupEditProfile.close();
     })
     .catch((err) => {
       console.log(err);
+      formValidators['edit-profile-form'].disableSubmitButton();
     })
     .finally(() => {
       popupEditProfile.renderLoading(false)
@@ -155,10 +159,12 @@ const popupAddPlace = new PopupWithForm({
     popupAddPlace.renderLoading(true);
     api.addNewCard({ name, link })
     .then((res) => {
-      gallery.addItem(createCard(res, userID))
+      gallery.addItem(createCard(res, userID));
+      popupAddPlace.close();
     })
     .catch((err) => {
       console.log(err);
+      formValidators['add-place-form'].disableSubmitButton();
     })
     .finally(() => {
       popupAddPlace.renderLoading(false)
@@ -211,6 +217,7 @@ function createCard(item, userID) {
           })
           .catch((err) => {
             console.log(err);
+            formValidators['delete-place-form'].disableSubmitButton();
           })
           .finally(() => {
             popupToDeleteCard.renderLoading(false, '')
